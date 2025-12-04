@@ -7,7 +7,6 @@ import { CardLayout } from "@/components/common/card-layout";
 import { ProductCard, ProductCardSkeleton } from "@/components/card/product";
 import { useIsMobile, useIsTablet } from "@/hooks/useMobile";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
@@ -22,7 +21,7 @@ export const ProductSection = ({ isLoading, products, title }: Props) => {
   const isTablet = useIsTablet();
   const [showAll, setShowAll] = useState(false);
 
-  const initialLength = isMobile ? 2 : isTablet ? 5 : 6;
+  const initialLength = isMobile ? 2 : isTablet ? 4 : 7;
 
   const handleViewAll = () => {
     setShowAll(true);
@@ -55,19 +54,19 @@ export const ProductSection = ({ isLoading, products, title }: Props) => {
 
   return (
     <HomeSectionTitle title={title}>
-      <CardLayout>
+      <CardLayout className="justify-center">
         {displayedProducts?.map((product) => (
           <ProductCard key={product?.id} product={product} />
         ))}
       </CardLayout>
       <div className="flex justify-center items-center mt-4">
         {!showAll && products && products?.length > initialLength ? (
-          <Button onClick={handleViewAll} className={cn("rounded-none")}>
+          <Button onClick={handleViewAll}>
             View All
             <ArrowDown className="w-6 h-6 font-bold group-hover:translate-x-1 transition-transform" />
           </Button>
         ) : showAll && products && products?.length > initialLength ? (
-          <Button onClick={handleSeeLess} className={cn("rounded-none")}>
+          <Button onClick={handleSeeLess}>
             See Less
             <ArrowUp className="w-6 h-6 font-bold group-hover:-translate-x-1 transition-transform" />
           </Button>

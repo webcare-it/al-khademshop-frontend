@@ -20,7 +20,7 @@ interface FormatType {
 export const CategoryProductsSection = () => {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
-  const initialLength = isMobile ? 2 : isTablet ? 5 : 6;
+  const initialLength = isMobile ? 2 : isTablet ? 4 : 7;
   const { data, isLoading } = useGetCategoryProductsForHome();
   const formatted = (data?.data as FormatType[]) || [];
 
@@ -29,7 +29,9 @@ export const CategoryProductsSection = () => {
       {isLoading ? (
         <>
           {Array.from({ length: 3 }).map((_, i) => (
-            <section key={i} className="mb-10 md:mb-20">
+            <section
+              key={i}
+              className={`${i === 2 ? "mb-0 md:mb-0" : "mb-10 md:mb-20"}`}>
               <SectionTitleSkeleton />
               <div className="w-full">
                 <CardLayout>
@@ -46,8 +48,11 @@ export const CategoryProductsSection = () => {
         formatted?.map((category) => {
           const hasProducts =
             category?.products && category?.products?.data?.length > 0;
+
           return hasProducts ? (
-            <section key={category?.categoryId} className="mb-10 md:mb-20">
+            <section
+              key={category?.categoryId}
+              className="flex flex-col items-center">
               <HomeSectionTitle
                 title={category?.name}
                 href={`/categories/${category?.categoryId}/${slugify(
